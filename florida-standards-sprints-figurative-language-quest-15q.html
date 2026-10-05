@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Florida Standards Sprints | Figurative Language Quest</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+:root{
+  --blue:#2563eb;
+  --blue2:#5aa9ff;
+  --navy:#173b7a;
+  --yellow:#f7c948;
+  --pink:#ff7aa2;
+  --purple:#7c5cff;
+  --green:#27ae60;
+  --aqua:#35c4c9;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --bg:#f6f9ff;
+  --good:#13795b;
+  --bad:#b42318;
+  --shadow:0 12px 30px rgba(23,59,122,.12);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at top left,rgba(90,169,255,.18),transparent 25%),
+    radial-gradient(circle at top right,rgba(247,201,72,.18),transparent 24%),
+    linear-gradient(180deg,#f7fbff 0%,#fffaf4 100%);
+  line-height:1.5;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  color:white;
+  background:linear-gradient(135deg,#10366f 0%,#2563eb 55%,#61b7ff 100%);
+  border-bottom:5px solid var(--yellow);
+  box-shadow:0 5px 18px rgba(0,0,0,.14);
+  padding:16px 18px;
+}
+
+.topbar{
+  max-width:1080px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:48px;height:48px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--yellow);
+  border:3px solid rgba(255,255,255,.85);
+  font-size:26px;
+}
+.brand h1{margin:0;font-size:18px}
+.brand p{margin:2px 0 0;font-size:12px}
+.runner{display:inline-block;transform:scaleX(-1)}
+
+.progress-wrap{min-width:180px}
+.progress-label{font-size:12px;text-align:right;margin-bottom:4px}
+.progress-track{height:10px;border-radius:999px;background:rgba(255,255,255,.3);overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--yellow);transition:.3s ease}
+
+main{max-width:1080px;margin:auto;padding:28px 18px 60px}
+
+.hero,.level,.report{
+  background:white;
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  border:1px solid #e3ebf7;
+}
+
+.hero{
+  padding:30px;
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"✨";
+  position:absolute;
+  right:30px;
+  top:14px;
+  font-size:90px;
+  opacity:.08;
+}
+.eyebrow{
+  display:inline-block;
+  background:#eaf2ff;
+  color:var(--navy);
+  padding:7px 11px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+.hero h2{
+  color:#142b4f;
+  font-size:38px;
+  line-height:1.05;
+  margin:14px 0 8px;
+}
+.hero p{max-width:780px;font-size:17px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+.chip{
+  padding:8px 11px;
+  border-radius:999px;
+  background:#f5f8fd;
+  border:1px solid #dae4f1;
+  font-size:13px;
+  font-weight:800;
+  color:#142b4f;
+}
+
+.goals{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:18px;
+}
+.goal{
+  padding:16px 18px;
+  border-radius:16px;
+}
+.bench{background:#edf4ff;border-left:6px solid var(--blue)}
+.ican{background:#fff6cf;border-left:6px solid var(--yellow)}
+.goal-title{
+  font-size:12px;
+  text-transform:uppercase;
+  font-weight:900;
+  letter-spacing:.5px;
+  color:#142b4f;
+  margin-bottom:5px;
+}
+.goal p{margin:0}
+
+.level{
+  margin-top:24px;
+  padding:24px;
+}
+.level-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:6px;
+}
+.level-badge{
+  width:40px;height:40px;border-radius:13px;
+  display:grid;place-items:center;
+  font-weight:900;color:white;
+}
+.l1{background:var(--aqua)}
+.l2{background:var(--purple)}
+.l3{background:var(--pink)}
+.l4{background:var(--green)}
+.level h3{margin:0;color:#142b4f;font-size:24px}
+.intro{color:var(--muted);margin:0 0 18px}
+
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.device{
+  border-radius:14px;
+  padding:13px;
+  border:1px solid #dce7f4;
+  background:#fbfdff;
+}
+.device strong{display:block;color:var(--navy)}
+.device span{font-size:12.5px;color:var(--muted)}
+
+.tip{
+  margin-top:16px;
+  background:#edf4ff;
+  border-left:6px solid var(--blue);
+  border-radius:14px;
+  padding:15px;
+}
+
+.q{
+  border:1px solid #dfe7f1;
+  border-radius:18px;
+  padding:18px;
+  margin:15px 0;
+  background:#fff;
+}
+.qnum{
+  color:var(--blue);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+}
+.context{
+  background:#f8fafc;
+  border-left:4px solid #abc4e8;
+  padding:12px;
+  border-radius:10px;
+  margin:9px 0 12px;
+}
+.q h4{font-size:18px;color:#142b4f;margin:5px 0 12px}
+.choices{display:grid;gap:9px}
+.choice{
+  width:100%;
+  border:2px solid #dbe6f0;
+  border-radius:12px;
+  padding:12px 14px;
+  background:white;
+  text-align:left;
+  font-size:15px;
+  cursor:pointer;
+}
+.choice:hover{border-color:var(--blue)}
+.choice.correct{border-color:var(--good);background:#eaf9f2}
+.choice.incorrect{border-color:var(--bad);background:#fff0ef}
+
+.feedback{
+  display:none;
+  margin-top:10px;
+  padding:11px 13px;
+  border-radius:10px;
+  font-weight:700;
+}
+.feedback.show{display:block}
+.feedback.good{background:#e9f9f1;color:var(--good)}
+.feedback.bad{background:#fff0ef;color:var(--bad)}
+
+.match-area{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:18px;
+}
+.bank,.zones{
+  background:#f8fafc;
+  border:1px solid #dbe5f1;
+  border-radius:16px;
+  padding:16px;
+}
+.bank h4,.zones h4{margin:0 0 10px;color:#142b4f}
+.piece{
+  margin:8px 0;
+  padding:10px 12px;
+  border-radius:12px;
+  border:2px solid #c9d9eb;
+  background:white;
+  font-weight:700;
+  color:#142b4f;
+  cursor:grab;
+}
+.piece.selected{outline:3px solid var(--yellow)}
+.drop{
+  min-height:62px;
+  margin:10px 0;
+  border-radius:12px;
+  border:2px dashed #9ab5dc;
+  padding:10px;
+  background:white;
+}
+.drop strong{color:var(--navy)}
+.slot{display:block;margin-top:4px;font-size:13px;color:var(--muted)}
+.drop.filled{border-style:solid;border-color:var(--blue);background:#edf4ff}
+
+.quest-text{
+  background:linear-gradient(135deg,#f7faff,#fffaf0);
+  border:1px solid #dce6f2;
+  padding:18px;
+  border-radius:16px;
+  margin-bottom:18px;
+}
+
+button.primary,button.secondary{
+  border:none;
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+button.primary{background:var(--blue);color:white}
+button.primary:hover{background:var(--navy)}
+button.secondary{background:var(--yellow);color:#142b4f}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cfdbe8;
+  border-radius:10px;
+  font-size:15px;
+}
+
+.report{
+  display:none;
+  margin-top:24px;
+  padding:24px;
+  border:2px solid var(--blue);
+}
+.report.show{display:block}
+.badge{
+  display:inline-block;
+  background:var(--yellow);
+  color:#142b4f;
+  font-weight:900;
+  border-radius:999px;
+  padding:8px 12px;
+}
+.score{
+  font-size:50px;
+  color:var(--navy);
+  font-weight:900;
+  margin:8px 0;
+}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.metric{
+  border:1px solid #dce6f2;
+  border-radius:14px;
+  padding:14px;
+  text-align:center;
+  background:#fff;
+}
+.metric strong{
+  display:block;
+  font-size:22px;
+  color:#142b4f;
+}
+.note{
+  margin-top:18px;
+  padding:15px;
+  border-radius:12px;
+  background:#fff7d9;
+  border-left:6px solid var(--yellow);
+}
+.tiny{font-size:12px;color:var(--muted)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
+
+@media(max-width:850px){
+  .goals,.match-area,.metrics{grid-template-columns:1fr}
+  .quick-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .quick-grid{grid-template-columns:1fr}
+  .hero,.level{padding:18px}
+  .hero h2{font-size:29px}
+  .progress-wrap{min-width:110px}
+}
+@media print{
+  header,.actions{display:none!important}
+  body{background:white}
+  .hero,.level,.report{box-shadow:none}
+  .report{display:block}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">🔍</div>
+      <div>
+        <h1>Florida Standards Sprints</h1>
+        <p>Learn it. Sprint it. Master it. <span class="runner">🏃</span></p>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span id="progressText">0%</span> complete</div>
+      <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <span class="eyebrow">GRADE 6 • FIGURATIVE LANGUAGE QUEST</span>
+  <h2>Quest for Meaning & Tone</h2>
+  <p>
+    Your mission: travel through four colorful levels, crack figurative-language clues,
+    and prove that you can explain how authors use language to shape meaning and tone.
+  </p>
+
+  <div class="chips">
+    <span class="chip">Florida B.E.S.T. ELA.6.R.3.1</span>
+    <span class="chip">Simile</span>
+    <span class="chip">Metaphor</span>
+    <span class="chip">Personification</span>
+    <span class="chip">Hyperbole</span>
+    <span class="chip">Idiom</span>
+    <span class="chip">Alliteration</span>
+    <span class="chip">Onomatopoeia</span>
+  </div>
+
+  <div class="goals">
+    <div class="goal bench">
+      <div class="goal-title">📘 Benchmark</div>
+      <p><strong>ELA.6.R.3.1:</strong> Explain how figurative language contributes to tone and meaning in text(s).</p>
+    </div>
+
+    <div class="goal ican">
+      <div class="goal-title">🎯 I Can</div>
+      <p><strong>I can identify figurative language and explain how it affects meaning and tone.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="level">
+  <div class="level-title">
+    <div class="level-badge l1">1</div>
+    <h3>Power-Up Station 🧠</h3>
+  </div>
+  <p class="intro">Review the tools you'll need before starting the Quest.</p>
+
+  <div class="quick-grid">
+    <div class="device"><strong>Simile</strong><span>Comparison using like or as.</span></div>
+    <div class="device"><strong>Metaphor</strong><span>Says one thing is another.</span></div>
+    <div class="device"><strong>Personification</strong><span>Gives human actions to nonhuman things.</span></div>
+    <div class="device"><strong>Hyperbole</strong><span>Extreme exaggeration.</span></div>
+    <div class="device"><strong>Idiom</strong><span>A phrase whose meaning isn't literal.</span></div>
+    <div class="device"><strong>Alliteration</strong><span>Repeats beginning consonant sounds.</span></div>
+    <div class="device"><strong>Onomatopoeia</strong><span>A word that imitates a sound.</span></div>
+    <div class="device"><strong>Tone</strong><span>The author's or speaker's attitude.</span></div>
+  </div>
+
+  <div class="tip">
+    <strong>Quest Tip:</strong> Naming the device is only step one.
+    Ask: <strong>What does it help me picture, feel, hear, or understand?</strong>
+  </div>
+</section>
+
+<section class="level">
+  <div class="level-title">
+    <div class="level-badge l2">2</div>
+    <h3>Hallway Clue Hunt 🎒</h3>
+  </div>
+  <p class="intro">Use familiar middle-school situations to unlock each clue.</p>
+
+  <div class="q" data-q="1" data-answer="b">
+    <div class="qnum">Quest Clue 1</div>
+    <div class="context">“When the teacher announced a surprise quiz, my stomach became <strong>a washing machine</strong>.”</div>
+    <h4>What does the metaphor help the reader understand?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. The student wanted to do laundry.</button>
+      <button class="choice" data-choice="b">B. The student felt nervous and unsettled.</button>
+      <button class="choice" data-choice="c">C. The classroom was extremely noisy.</button>
+      <button class="choice" data-choice="d">D. The student was excited about the quiz.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="2" data-answer="c">
+    <div class="qnum">Quest Clue 2</div>
+    <div class="context">“The final bell <strong>screamed</strong> through the hallway.”</div>
+    <h4>How does the personification affect the sentence?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It makes the bell seem quiet.</button>
+      <button class="choice" data-choice="b">B. It shows the bell has feelings.</button>
+      <button class="choice" data-choice="c">C. It emphasizes the sharp, attention-grabbing sound.</button>
+      <button class="choice" data-choice="d">D. It creates a comparison using like.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="3" data-answer="d">
+    <div class="qnum">Quest Clue 3</div>
+    <div class="context">“I have <strong>a mountain of homework</strong> tonight.”</div>
+    <h4>What does the hyperbole emphasize?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. The homework is outdoors.</button>
+      <button class="choice" data-choice="b">B. The student is studying mountains.</button>
+      <button class="choice" data-choice="c">C. The homework is physically stacked to the ceiling.</button>
+      <button class="choice" data-choice="d">D. The student feels there is an overwhelming amount of work.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="4" data-answer="a">
+    <div class="qnum">Quest Clue 4</div>
+    <div class="context">“My friend told me to <strong>hang in there</strong> before the big presentation.”</div>
+    <h4>What does the idiom mean in this sentence?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. Keep trying and don't give up.</button>
+      <button class="choice" data-choice="b">B. Hold onto something above you.</button>
+      <button class="choice" data-choice="c">C. Leave the presentation early.</button>
+      <button class="choice" data-choice="d">D. Wait outside the classroom.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<section class="level">
+  <div class="level-title">
+    <div class="level-badge l3">3</div>
+    <h3>Match-Up Mission 🎯</h3>
+  </div>
+  <p class="intro">Drag each phrase to the correct figurative-language type. On a touch screen, tap the phrase and then tap the correct box.</p>
+
+  <div class="match-area">
+    <div class="bank">
+      <h4>Phrase Bank</h4>
+      <div class="piece" draggable="true" data-id="p1" data-type="simile">“Her backpack felt as heavy as a boulder.”</div>
+      <div class="piece" draggable="true" data-id="p2" data-type="alliteration">“Busy backpacks bumped beside Ben.”</div>
+      <div class="piece" draggable="true" data-id="p3" data-type="onomatopoeia">“Buzz! My phone vibrated across the desk.”</div>
+      <div class="piece" draggable="true" data-id="p4" data-type="personification">“The clock stared at me during the test.”</div>
+    </div>
+
+    <div class="zones">
+      <h4>Drop Zones</h4>
+
+      <div class="drop" data-type="simile">
+        <strong>Simile</strong>
+        <span class="slot">Drop a phrase here.</span>
+      </div>
+
+      <div class="drop" data-type="alliteration">
+        <strong>Alliteration</strong>
+        <span class="slot">Drop a phrase here.</span>
+      </div>
+
+      <div class="drop" data-type="onomatopoeia">
+        <strong>Onomatopoeia</strong>
+        <span class="slot">Drop a phrase here.</span>
+      </div>
+
+      <div class="drop" data-type="personification">
+        <strong>Personification</strong>
+        <span class="slot">Drop a phrase here.</span>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="checkMatch">Check My Matches</button>
+        <button class="secondary" id="resetMatch">Reset</button>
+      </div>
+
+      <div class="feedback" id="matchFeedback"></div>
+    </div>
+  </div>
+</section>
+
+<section class="level">
+  <div class="level-title">
+    <div class="level-badge l4">4</div>
+    <h3>Final Quest: The Last Bus 🚌</h3>
+  </div>
+
+  <p class="intro">Read the original passage. Then show that you can explain how figurative language shapes meaning and tone.</p>
+
+  <div class="quest-text">
+    <strong>The Last Bus</strong><br><br>
+    Jalen burst through the school doors and froze. The bus loop was almost empty.
+    His bus sat at the far end, its red lights blinking <strong>like impatient eyes</strong>.
+    “No, no, no,” he whispered. His backpack felt <strong>as heavy as a refrigerator</strong>
+    as he took off running.<br><br>
+
+    <strong>Thump, thump, thump!</strong> His sneakers pounded the sidewalk.
+    The distance between him and the bus seemed to stretch forever.
+    Then the doors began to close.<br><br>
+
+    “Wait!” Jalen shouted.<br><br>
+
+    The driver spotted him and stopped. The doors opened again.
+    Relief <strong>washed over him like a cool wave</strong>.
+    He climbed aboard, dropped into the nearest seat, and grinned.
+    “Piece of cake,” he said between gasps.
+  </div>
+
+  <div class="q" data-q="5" data-answer="c">
+    <div class="qnum">Final Quest 1</div>
+    <h4>What does “the red lights blinking like impatient eyes” suggest about the bus?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. The bus is frightened of Jalen.</button>
+      <button class="choice" data-choice="b">B. The bus has real eyes.</button>
+      <button class="choice" data-choice="c">C. The bus seems as if it is waiting for Jalen to hurry.</button>
+      <button class="choice" data-choice="d">D. The bus lights are broken.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="6" data-answer="a">
+    <div class="qnum">Final Quest 2</div>
+    <h4>Why does the author compare Jalen's backpack to a refrigerator?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. To exaggerate how heavy it feels while he runs</button>
+      <button class="choice" data-choice="b">B. To show that food is inside the backpack</button>
+      <button class="choice" data-choice="c">C. To create a peaceful tone</button>
+      <button class="choice" data-choice="d">D. To explain the exact weight of the backpack</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="7" data-answer="d">
+    <div class="qnum">Final Quest 3</div>
+    <h4>What is the effect of “Thump, thump, thump!”?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It shows that Jalen is moving quietly.</button>
+      <button class="choice" data-choice="b">B. It compares his shoes to a drum.</button>
+      <button class="choice" data-choice="c">C. It makes the moment feel calm.</button>
+      <button class="choice" data-choice="d">D. It helps the reader hear his rushed footsteps and builds urgency.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="8" data-answer="b">
+    <div class="qnum">Final Quest 4</div>
+    <h4>How does “Relief washed over him like a cool wave” affect the tone?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It changes the tone from cheerful to angry.</button>
+      <button class="choice" data-choice="b">B. It shifts the tone from tense to relieved and calm.</button>
+      <button class="choice" data-choice="c">C. It shows Jalen is caught in a rainstorm.</button>
+      <button class="choice" data-choice="d">D. It makes the bus ride seem dangerous.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="9" data-answer="c">
+    <div class="qnum">Final Quest 5</div>
+    <h4>Jalen says “Piece of cake” after barely catching the bus. What does the idiom mean?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. He wants dessert.</button>
+      <button class="choice" data-choice="b">B. He thinks the bus serves food.</button>
+      <button class="choice" data-choice="c">C. He jokingly says the difficult experience was easy.</button>
+      <button class="choice" data-choice="d">D. He is angry at the driver.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="10" data-answer="a">
+    <div class="qnum">Final Quest 6</div>
+    <h4>Which statement best explains how the figurative language works across the passage?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It first builds urgency and stress, then helps show Jalen's relief at the end.</button>
+      <button class="choice" data-choice="b">B. It proves that all events in the passage are imaginary.</button>
+      <button class="choice" data-choice="c">C. It keeps the tone exactly the same from beginning to end.</button>
+      <button class="choice" data-choice="d">D. It mainly gives factual information about buses.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="11" data-answer="b">
+    <div class="qnum">Bonus Quest 1</div>
+    <div class="context">“My alarm clock <strong>yelled at me</strong> from across the room.”</div>
+    <h4>What does the personification emphasize?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. The alarm clock is broken.</button>
+      <button class="choice" data-choice="b">B. The alarm sounds loud and annoying.</button>
+      <button class="choice" data-choice="c">C. The speaker is talking to another person.</button>
+      <button class="choice" data-choice="d">D. The room is completely silent.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="12" data-answer="d">
+    <div class="qnum">Bonus Quest 2</div>
+    <div class="context">“The crowd moved through the hallway <strong>like a river</strong>.”</div>
+    <h4>How does the simile contribute to the meaning?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It shows the hallway is flooded.</button>
+      <button class="choice" data-choice="b">B. It shows the students are swimming.</button>
+      <button class="choice" data-choice="c">C. It creates a quiet, empty image.</button>
+      <button class="choice" data-choice="d">D. It shows many people moving together in a steady flow.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="13" data-answer="a">
+    <div class="qnum">Bonus Quest 3</div>
+    <div class="context">“<strong>Snap!</strong> The pencil broke in the middle of the math test.”</div>
+    <h4>What effect does the onomatopoeia create?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It helps the reader hear the sudden break and adds tension.</button>
+      <button class="choice" data-choice="b">B. It makes the scene sound calm and relaxing.</button>
+      <button class="choice" data-choice="c">C. It compares the pencil to another object.</button>
+      <button class="choice" data-choice="d">D. It explains why the student dislikes math.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="14" data-answer="c">
+    <div class="qnum">Bonus Quest 4</div>
+    <div class="context">“After three hours of practice, Coach said we were finally <strong>on the right track</strong>.”</div>
+    <h4>What does the idiom mean?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. The team moved onto a running track.</button>
+      <button class="choice" data-choice="b">B. The coach wanted the players to leave practice.</button>
+      <button class="choice" data-choice="c">C. The team was making progress and improving.</button>
+      <button class="choice" data-choice="d">D. The team was lost.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+
+  <div class="q" data-q="15" data-answer="b">
+    <div class="qnum">Bonus Quest 5</div>
+    <div class="context">“Mia opened the gradebook and saw a 100. <strong>Sunshine burst across her face.</strong>”</div>
+    <h4>How does the figurative language affect the tone?</h4>
+    <div class="choices">
+      <button class="choice" data-choice="a">A. It creates a disappointed tone.</button>
+      <button class="choice" data-choice="b">B. It creates a joyful, proud tone.</button>
+      <button class="choice" data-choice="c">C. It creates a frightening tone.</button>
+      <button class="choice" data-choice="d">D. It creates a confused tone.</button>
+    </div>
+    <div class="feedback"></div>
+  </div>
+</section>
+
+<section class="level">
+  <div class="level-title">
+    <div class="level-badge l1">🏁</div>
+    <h3>Claim Your Quest Badge</h3>
+  </div>
+  <p class="intro">Complete every question and the Match-Up Mission, then enter your name.</p>
+
+  <input type="text" id="studentName" placeholder="First and last name">
+
+  <div class="actions">
+    <button class="secondary" id="finishBtn">Finish My Quest</button>
+  </div>
+</section>
+
+<section class="report" id="report">
+  <span class="badge">QUEST COMPLETE 🔍</span>
+  <h3>Figurative Language Quest Report</h3>
+  <div class="score" id="scoreText">0%</div>
+  <p id="reportMessage"></p>
+
+  <div class="metrics">
+    <div class="metric">
+      <strong id="questionMetric">0/15</strong>
+      Questions Correct
+    </div>
+    <div class="metric">
+      <strong id="matchMetric">0/4</strong>
+      Matches Correct
+    </div>
+    <div class="metric">
+      <strong>Complete</strong>
+      Quest Status
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Student:</strong> <span id="studentDisplay">________________</span><br>
+    <strong>Benchmark:</strong> Florida B.E.S.T. ELA.6.R.3.1<br>
+    <strong>Skill:</strong> Figurative Language — Meaning & Tone
+  </div>
+
+  <div class="actions">
+    <button class="primary" id="downloadBtn">Download My Completed Work PDF</button>
+    <button class="primary" onclick="window.print()">Print / Save as PDF</button>
+    <button class="secondary" onclick="location.reload()">Try Again</button>
+  </div>
+
+  <p class="tiny">The PDF includes the student's score, question responses, correct answers, matching results, and completion details.</p>
+</section>
+
+</main>
+
+<footer>
+© 2026 Florida Standards Sprints • Original instructional content • Independent educational resource.<br>
+Not affiliated with or endorsed by the Florida Department of Education.
+</footer>
+
+<script>
+const questions=[...document.querySelectorAll('.q[data-answer]')];
+const answers={};
+let selectedPiece=null;
+let matchChecked=false;
+let matchCorrect=0;
+
+function updateProgress(){
+  const answered=Object.keys(answers).length;
+  const matchPoint=matchChecked?1:0;
+  const pct=Math.round(((answered+matchPoint)/(questions.length+1))*100);
+  document.getElementById('progressBar').style.width=pct+'%';
+  document.getElementById('progressText').textContent=pct+'%';
+}
+
+questions.forEach(q=>{
+  const answer=q.dataset.answer;
+  const fb=q.querySelector('.feedback');
+
+  q.querySelectorAll('.choice').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(answers[q.dataset.q]) return;
+
+      const picked=btn.dataset.choice;
+      answers[q.dataset.q]=picked;
+
+      if(picked===answer){
+        btn.classList.add('correct');
+        fb.textContent='✅ Quest clue unlocked! Think about the effect the language creates.';
+        fb.className='feedback show good';
+      }else{
+        btn.classList.add('incorrect');
+        q.querySelector(`[data-choice="${answer}"]`).classList.add('correct');
+        fb.textContent='💡 Check the clue again. Ask what the language helps you picture, feel, hear, or understand.';
+        fb.className='feedback show bad';
+      }
+
+      updateProgress();
+    });
+  });
+});
+
+const pieces=[...document.querySelectorAll('.piece')];
+const drops=[...document.querySelectorAll('.drop')];
+
+pieces.forEach(piece=>{
+  piece.addEventListener('dragstart',e=>{
+    e.dataTransfer.setData('text/plain',piece.dataset.id);
+    selectedPiece=piece.dataset.id;
+  });
+
+  piece.addEventListener('click',()=>{
+    selectedPiece=piece.dataset.id;
+    pieces.forEach(p=>p.classList.remove('selected'));
+    piece.classList.add('selected');
+  });
+});
+
+function placePiece(drop,id){
+  const piece=document.querySelector(`[data-id="${id}"]`);
+  if(!piece) return;
+
+  drops.forEach(d=>{
+    if(d.dataset.pieceId===id){
+      d.dataset.pieceId='';
+      d.classList.remove('filled');
+      d.querySelector('.slot').textContent='Drop a phrase here.';
+    }
+  });
+
+  drop.dataset.pieceId=id;
+  drop.classList.add('filled');
+  drop.querySelector('.slot').textContent=piece.textContent;
+
+  pieces.forEach(p=>p.classList.remove('selected'));
+  selectedPiece=null;
+  matchChecked=false;
+  updateProgress();
+}
+
+drops.forEach(drop=>{
+  drop.addEventListener('dragover',e=>e.preventDefault());
+  drop.addEventListener('drop',e=>{
+    e.preventDefault();
+    placePiece(drop,e.dataTransfer.getData('text/plain'));
+  });
+  drop.addEventListener('click',()=>{
+    if(selectedPiece) placePiece(drop,selectedPiece);
+  });
+});
+
+document.getElementById('resetMatch').addEventListener('click',()=>{
+  drops.forEach(drop=>{
+    drop.dataset.pieceId='';
+    drop.classList.remove('filled');
+    drop.querySelector('.slot').textContent='Drop a phrase here.';
+  });
+  pieces.forEach(p=>p.classList.remove('selected'));
+  selectedPiece=null;
+  matchChecked=false;
+  matchCorrect=0;
+  document.getElementById('matchFeedback').className='feedback';
+  updateProgress();
+});
+
+document.getElementById('checkMatch').addEventListener('click',()=>{
+  const filled=drops.filter(d=>d.dataset.pieceId).length;
+  const fb=document.getElementById('matchFeedback');
+
+  if(filled<drops.length){
+    fb.textContent='Place all four phrases before checking your matches.';
+    fb.className='feedback show bad';
+    return;
+  }
+
+  matchCorrect=0;
+
+  drops.forEach(drop=>{
+    const piece=document.querySelector(`[data-id="${drop.dataset.pieceId}"]`);
+    if(piece && piece.dataset.type===drop.dataset.type) matchCorrect++;
+  });
+
+  matchChecked=true;
+
+  if(matchCorrect===4){
+    fb.textContent='🏆 Perfect! All four matches are correct.';
+    fb.className='feedback show good';
+  }else{
+    fb.textContent=`You matched ${matchCorrect} of 4 correctly. Reset and try again if you want to improve your score.`;
+    fb.className='feedback show bad';
+  }
+
+  updateProgress();
+});
+
+document.getElementById('finishBtn').addEventListener('click',()=>{
+  const name=document.getElementById('studentName').value.trim();
+
+  if(Object.keys(answers).length<questions.length){
+    alert('Complete all 15 Quest questions before finishing.');
+    return;
+  }
+
+  if(!matchChecked){
+    alert('Complete and check the Match-Up Mission before finishing.');
+    return;
+  }
+
+  if(!name){
+    alert('Enter your name before finishing your Quest.');
+    document.getElementById('studentName').focus();
+    return;
+  }
+
+  let correct=0;
+  questions.forEach(q=>{
+    if(answers[q.dataset.q]===q.dataset.answer) correct++;
+  });
+
+  const pct=Math.round((correct/questions.length)*100);
+
+  document.getElementById('scoreText').textContent=pct+'%';
+  document.getElementById('questionMetric').textContent=`${correct}/15`;
+  document.getElementById('matchMetric').textContent=`${matchCorrect}/4`;
+  document.getElementById('studentDisplay').textContent=name;
+
+  let msg='';
+  if(pct>=90) msg='🏆 Figurative Language Master! You explained meaning and tone with strong accuracy.';
+  else if(pct>=80) msg='🌟 Quest conquered! You showed strong understanding of figurative language.';
+  else if(pct>=70) msg='👍 Solid progress! Review the clues you missed before your next Sprint.';
+  else msg='🔁 Keep questing! Focus on what each phrase makes the reader picture, feel, hear, or understand.';
+
+  document.getElementById('reportMessage').textContent=msg;
+  document.getElementById('report').classList.add('show');
+  document.getElementById('report').scrollIntoView({behavior:'smooth'});
+});
+
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  if(!window.jspdf || !window.jspdf.jsPDF){
+    alert('The PDF library could not load. Check the internet connection and try again.');
+    return;
+  }
+
+  const name=document.getElementById('studentName').value.trim()||'Student';
+  let correct=0;
+
+  const qRows=questions.map(q=>{
+    const picked=answers[q.dataset.q];
+    const selected=picked?q.querySelector(`[data-choice="${picked}"]`):null;
+    const correctBtn=q.querySelector(`[data-choice="${q.dataset.answer}"]`);
+    const isCorrect=picked===q.dataset.answer;
+    if(isCorrect) correct++;
+
+    return [
+      q.dataset.q,
+      q.querySelector('h4').textContent.trim(),
+      selected?selected.textContent.trim():'No response',
+      correctBtn.textContent.trim(),
+      isCorrect?'Correct':'Incorrect'
+    ];
+  });
+
+  const matchRows=drops.map(drop=>{
+    const piece=document.querySelector(`[data-id="${drop.dataset.pieceId}"]`);
+    const isCorrect=piece && piece.dataset.type===drop.dataset.type;
+
+    return [
+      drop.querySelector('strong').textContent,
+      piece?piece.textContent:'No response',
+      isCorrect?'Correct':'Incorrect'
+    ];
+  });
+
+  const pct=Math.round((correct/questions.length)*100);
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'pt',format:'letter'});
+  const pageWidth=doc.internal.pageSize.getWidth();
+  const left=42,right=42;
+  let y=46;
+
+  doc.setFillColor(18,54,111);
+  doc.roundedRect(left,y,pageWidth-left-right,72,12,12,'F');
+
+  doc.setFillColor(247,201,72);
+  doc.roundedRect(left+14,y+14,44,44,10,10,'F');
+
+  doc.setTextColor(20,43,79);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(16);
+  doc.text('FSS',left+36,y+41,{align:'center'});
+
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text('Florida Standards Sprints',left+72,y+30);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(10.5);
+  doc.text('Learn it. Sprint it. Master it.',left+72,y+48);
+
+  y+=96;
+
+  doc.setTextColor(20,43,79);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(18);
+  doc.text('Figurative Language Quest: Meaning & Tone',left,y);
+
+  y+=24;
+
+  doc.setFillColor(247,201,72);
+  doc.roundedRect(left,y,112,34,10,10,'F');
+  doc.setTextColor(20,43,79);
+  doc.setFontSize(11);
+  doc.text('QUEST COMPLETE',left+56,y+22,{align:'center'});
+
+  doc.setTextColor(37,99,235);
+  doc.setFontSize(28);
+  doc.text(`${pct}%`,pageWidth-right,y+26,{align:'right'});
+
+  y+=54;
+
+  doc.setFillColor(244,248,255);
+  doc.roundedRect(left,y,pageWidth-left-right,92,10,10,'F');
+
+  doc.setTextColor(31,41,55);
+  doc.setFontSize(10.5);
+  doc.setFont('helvetica','bold');
+  doc.text('Student:',left+14,y+22);
+  doc.text('Benchmark:',left+14,y+42);
+  doc.text('Questions:',left+14,y+62);
+  doc.text('Matching:',left+14,y+82);
+
+  doc.setFont('helvetica','normal');
+  doc.text(name,left+86,y+22);
+  doc.text('Florida B.E.S.T. ELA.6.R.3.1',left+86,y+42);
+  doc.text(`${correct}/15 (${pct}%)`,left+86,y+62);
+  doc.text(`${matchCorrect}/4`,left+86,y+82);
+
+  y+=116;
+
+  doc.setTextColor(20,43,79);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.text('Match-Up Mission',left,y);
+
+  doc.autoTable({
+    startY:y+10,
+    head:[['Type','Student Match','Result']],
+    body:matchRows,
+    margin:{left:left,right:right},
+    theme:'grid',
+    styles:{fontSize:8.5,cellPadding:5,valign:'top'},
+    headStyles:{fillColor:[37,99,235],textColor:[255,255,255],fontStyle:'bold'}
+  });
+
+  y=doc.lastAutoTable.finalY+22;
+
+  doc.setTextColor(20,43,79);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(14);
+  doc.text('Quest Responses',left,y);
+
+  doc.autoTable({
+    startY:y+10,
+    head:[['#','Question','Student Answer','Correct Answer','Result']],
+    body:qRows,
+    margin:{left:left,right:right,bottom:44},
+    theme:'grid',
+    styles:{
+      fontSize:7.3,
+      cellPadding:4,
+      valign:'top',
+      lineColor:[215,224,227],
+      lineWidth:.4,
+      overflow:'linebreak'
+    },
+    headStyles:{
+      fillColor:[37,99,235],
+      textColor:[255,255,255],
+      fontStyle:'bold',
+      fontSize:7.6
+    },
+    columnStyles:{
+      0:{cellWidth:22,halign:'center'},
+      1:{cellWidth:158},
+      2:{cellWidth:112},
+      3:{cellWidth:112},
+      4:{cellWidth:58,halign:'center'}
+    },
+    didParseCell:function(data){
+      if(data.section==='body' && data.column.index===4){
+        if(data.cell.raw==='Correct'){
+          data.cell.styles.textColor=[19,121,91];
+          data.cell.styles.fontStyle='bold';
+        }else{
+          data.cell.styles.textColor=[180,35,24];
+          data.cell.styles.fontStyle='bold';
+        }
+      }
+    },
+    didDrawPage:function(){
+      const h=doc.internal.pageSize.getHeight();
+      doc.setFont('helvetica','normal');
+      doc.setFontSize(8);
+      doc.setTextColor(107,114,128);
+      doc.text('Florida Standards Sprints • Completion Evidence',left,h-20);
+      doc.text(`Page ${doc.internal.getNumberOfPages()}`,pageWidth-right,h-20,{align:'right'});
+    }
+  });
+
+  const safeName=name.replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')||'student';
+  doc.save(`${safeName}-figurative-language-quest.pdf`);
+});
+
+updateProgress();
+</script>
+
+</body>
+</html>
